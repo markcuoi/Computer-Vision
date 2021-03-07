@@ -5,29 +5,11 @@ import matplotlib.pyplot as plt
 
 from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 
-datagen = ImageDataGenerator(
-    rotation_range=40,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    shear_range=0.2,
-    zoom_range=0.2,
-    horizontal_flip=True,
-    fill_mode='nearest'
-)
-
-img = load
-# load data
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-
-# create a grid of 3x3 images
-for i in range(10)
-    plt.subplot(330 + 1 + i)
-    plt.imshow(x_train[i])
-plt.show()
-
 class dataAugmentaion():
-    def __init__(self, image_path = ''):
-    
+    def __init__(self, image_path = 'dog.jpeg'):
+        self.image_path = image_path
+        self.datagen()
+        print('hehe')
     def datagen(self):
         datagen = ImageDataGenerator(
             rotation_range=30,
@@ -37,10 +19,16 @@ class dataAugmentaion():
             zoom_range=0.2,
             horizontal_flip=True,
             fill_mode='nearest')
-        )
-        img = cv2.imread('dog.jpeg')
-        print(img)
+
+        img = cv2.imread(self.image_path)
         inputGen = np.array(img)
-        print(inputGen)
+        inputGen = inputGen.reshape((1,)+inputGen.shape)
+        i = 0
+        for batch in datagen.flow(inputGen, save_to_dir='output', save_prefix='dog', save_format='jpeg'):
+            i += 1
+            print('hehe')
+            if i > 35:
+                break 
 
-
+a = dataAugmentaion()
+# a.datagen
